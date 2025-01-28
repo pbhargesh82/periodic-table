@@ -1,0 +1,7 @@
+<div class="h-full w-full">
+    <model-viewer [alt]="selectedElement()?.summary || 'No summary available'"
+        [src]="selectedElement()?.bohr_model_3d || ''" ar
+        environment-image="https://modelviewer.dev/shared-assets/environments/moon_1k.hdr"
+        [poster]="selectedElement()?.image?.url || ''" shadow-intensity="1" camera-controls
+        touch-action="pan-y"></model-viewer>
+</div>
