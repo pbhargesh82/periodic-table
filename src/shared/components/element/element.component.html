@@ -1,1 +1,68 @@
-{{selectedElement()?.name}}
+<div class="p-5">
+    <div class="text-center mb-5">
+        <h2>{{ selectedElement()?.name }} ({{ selectedElement()?.symbol }})</h2>
+        <div class="text-xl font-medium mt-1.5">Atomic Number: {{ selectedElement()?.number }}</div>
+        <div class="text-xl font-medium mt-1.5">Category: {{ selectedElement()?.category | capitalize }}</div>
+    </div>
+
+    <div class="max-w-full h-auto rounded-lg flex flex-col items-center">
+        <img [src]="selectedElement()?.image?.url" [alt]="selectedElement()?.image?.title" />
+        <div class="text-xs text-gray-400 text-center mt-1.5">
+            <span>{{ selectedElement()?.image?.attribution }}</span>
+        </div>
+    </div>
+
+    <div class="mt-5 text-lg">
+        <p>{{ selectedElement()?.summary }}</p>
+    </div>
+
+    <div class="mt-5">
+        <div class="mb-3"><strong>Discovered By:</strong> {{ selectedElement()?.discovered_by | capitalize }}</div>
+        @if(selectedElement()?.named_by) {
+        <div class="mb-3"><strong>Named By:</strong> {{ selectedElement()?.named_by | capitalize }}</div>
+        }
+        <div class="mb-3"><strong>Appearance:</strong> {{ selectedElement()?.appearance | capitalize }}</div>
+        <div class="mb-3"><strong>Atomic Mass:</strong> {{ selectedElement()?.atomic_mass }}</div>
+        <div class="mb-3"><strong>Boiling Point:</strong> {{ selectedElement()?.boil ? selectedElement()?.boil + ' °C' :
+            'N/A' }}</div>
+        <div class="mb-3"><strong>Melting Point:</strong> {{ selectedElement()?.melt ? selectedElement()?.melt + ' °C' :
+            'N/A' }}</div>
+        <div class="mb-3"><strong>Density:</strong> {{ selectedElement()?.density }} g/cm³</div>
+        <div class="mb-3"><strong>Phase:</strong> {{ selectedElement()?.phase }}</div>
+        <div class="mb-3"><strong>Electron Configuration:</strong> {{ selectedElement()?.electron_configuration }}</div>
+        <div class="mb-3"><strong>Electronegativity:</strong> {{ selectedElement()?.electronegativity_pauling }}</div>
+        <div class="mb-3"><strong>Electron Affinity:</strong> {{ selectedElement()?.electron_affinity }}</div>
+        <div class="mb-3"><strong>Molar Heat Capacity:</strong> {{ selectedElement()?.molar_heat || 'N/A' }}</div>
+        <div class="mb-3"><strong>Block:</strong> {{ selectedElement()?.block?.toUpperCase() }}</div>
+        <div class="mb-3"><strong>Period:</strong> {{ selectedElement()?.period }}</div>
+        <div class="mb-3"><strong>Group:</strong> {{ selectedElement()?.group }}</div>
+    </div>
+
+    <div class="mt-10 text-center">
+        <h3 class="mb-2">3D Bohr Model</h3>
+        <app-model-viewer [selectedElement]="selectedElement()"></app-model-viewer>
+    </div>
+
+    <div class="mt-5 text-center">
+        <h3 class="mb-1">Shell Configuration</h3>
+        <div class="flex justify-center space-x-2">
+            <span class="flex gap-2 items-center">
+                @for (shell of selectedElement()?.shells; track $index) {
+                <div class="flex flex-col gap-1 items-center">
+                    <span
+                        class="flex items-center justify-center h-8 w-8 rounded-full font-semibold bg-gray-200 px-2 py-1 text-sm text-gray-700">{{
+                        shell }}</span>
+                    <span class="text-gray-400 text-xs"> {{$index + 1}}</span>
+                </div>
+                }
+            </span>
+        </div>
+    </div>
+
+    <div class="mt-5 text-center">
+        <a class="text-blue-500 no-underline hover:underline" [href]="selectedElement()?.source" target="_blank"
+            rel="noopener noreferrer">
+            More Information
+        </a>
+    </div>
+</div>

@@ -13,12 +13,7 @@ export class ModelViewerComponent {
   selectedElement = input<Element | null>(null);
 
   ngOnInit(): void {
-    console.log(this.selectedElement);
-  }
-
-  ngOnChange(): void {
-    this.selectedElement = this.selectedElement;
-    console.log(this.selectedElement);
+    console.log(this.selectedElement());
   }
 
 }

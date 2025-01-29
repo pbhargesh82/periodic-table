@@ -1,23 +1,23 @@
-<div class="periodic-table-grid" (mousemove)="onMouseMove($event)">
-    @for (element of elements(); track $index) {
-    <div class="element relative" [class]="getElementClass(element)" [style.gridColumn]="element.xpos"
-        [style.gridRow]="element.ypos" (click)="selectedElement.set(element)"
-        (mouseenter)="onMouseEnter(element, $event)" (mouseleave)="onMouseLeave($event)">
-        <div class="symbol">{{ element.symbol }}</div>
-        <div class="number absolute top-0 left-0 px-1">{{ element.number }}</div>
-        <div class="number absolute top-0 right-0 px-1">{{ element.atomic_mass }}</div>
-        <div class="name">{{ element.name }}</div>
+<div class="text-black max-w-[1800px] w-min mx-auto my-0 p-3">
+    <div
+        class="grid grid-cols-[repeat(18,minmax(90px,1fr))] grid-rows-[repeat(7,minmax(90px,1fr))_20px_repeat(2,minmax(90px,1fr))] gap-1.5">
+        @for (element of elements(); track $index) {
+        <div #element
+            class="relative border border-gray-300 rounded-lg text-center flex flex-col gap-1 justify-center items-center text-xs p-1.5 cursor-pointer shadow hover:shadow-2xl hover:-translate-y-0.5 transition duration-300 ease-in-out"
+            [class]="element.category | elementCategoryClass" [style.gridColumn]="element.xpos"
+            [style.gridRow]="element.ypos" (click)="selectedElement.set(element);showElementDetails.set(true)">
+            <div class="font-bold">{{ element.symbol }}</div>
+            <div class="absolute top-0 left-0 px-1">{{ element.number }}</div>
+            <div class="absolute top-0 right-0 px-1">{{ element.atomic_mass | decimal:2}}</div>
+            <div>{{ element.name }}</div>
+        </div>
+        }
     </div>
+
+    @if(selectedElement()) {
+    <p-drawer [visible]="showElementDetails()" styleClass="w-[40vw]" [header]="&nbsp;" position="right"
+        (onHide)="showElementDetails.set(false)">
+        <app-element [selectedElement]="selectedElement()"></app-element>
+    </p-drawer>
     }
 </div>
-@if (selectedElement()) {
-<!-- <app-element [selectedElement]="selectedElement()" /> -->
-<!-- <app-model-viewer [selectedElement]="selectedElement()" /> -->
-}
-@if (showElementDetails()) {
-<div class="h-96 w-100 bg-amber-100 absolute z-50 p-4 rounded shadow-lg" [style.left.px]="cursorPosition().x + 10"
-    [style.top.px]="cursorPosition().y + 10">
-    <h3>{{ selectedElement()?.name }}</h3>
-    <p>{{ selectedElement()?.summary }}</p>
-</div>
-}
