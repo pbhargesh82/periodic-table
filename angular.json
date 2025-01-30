@@ -22,12 +22,9 @@
             "tsConfig": "tsconfig.app.json",
             "assets": [
               {
-                "glob": "_redirects",
-                "input": "src",
-                "output": "/"
-              },
-              "src/atom.webp",
-              "src/assets"
+                "glob": "**/*",
+                "input": "public"
+              }
             ],
             "styles": [
               "src/styles.css"
