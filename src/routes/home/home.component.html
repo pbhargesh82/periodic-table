@@ -15,7 +15,7 @@
     </div>
 
     @if(selectedElement()) {
-    <p-drawer [visible]="showElementDetails()" styleClass="w-[40vw]" [header]="&nbsp;" position="right"
+    <p-drawer [visible]="showElementDetails()" styleClass="md:w-[40vw] sm:w-[60vw]" [header]="&nbsp;" position="right"
         (onHide)="showElementDetails.set(false)">
         <app-element [selectedElement]="selectedElement()"></app-element>
     </p-drawer>
